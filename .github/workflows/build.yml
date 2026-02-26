@@ -24,8 +24,8 @@ jobs:
           cd emsdk
           ./emsdk install latest
           ./emsdk activate latest
-          echo "EMSDK=/home/runner/work/sky-browser/sky-browser/emsdk" >> $GITHUB_ENV
-          echo "$EMSDK/upstream/emscripten" >> $GITHUB_PATH
+          echo "EMSDK=${{ github.workspace }}/emsdk" >> $GITHUB_ENV
+          echo "${{ github.workspace }}/emsdk/upstream/emscripten" >> $GITHUB_PATH
 
       # 编译 texgenpack
       - name: Compile texgenpack with emscripten
@@ -36,7 +36,7 @@ jobs:
             -s EXPORT_ES6=1 \
             -s MODULARIZE=1 \
             -s EXPORT_NAME=loadWASM \
-            -s EXPORTED_FUNCTIONS="[_teh_decompress_rgba8, _teh_decompress_rgb8]" \
+            -s EXPORT_ALL=1 \
             -o a.out.js \
             *.c
           cd ../..
